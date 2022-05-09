@@ -5,17 +5,17 @@ import java.util.Set;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
-import org.bukkit.advancement.Advancement;
-import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Player;
 
+import io.github.mcrtin.tmp.advancements.Advancement;
+import io.github.mcrtin.tmp.advancements.AdvancementProgress;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class PacketPlayOutAdvancementsEvent extends PacketPlayOutEvent {
+public class PPOAdvancementsEvent extends PacketPlayOutEvent {
 
 	/**
 	 * Whether to reset/clear the current advancements.
@@ -32,7 +32,7 @@ public class PacketPlayOutAdvancementsEvent extends PacketPlayOutEvent {
 	@NonNull
 	private Map<NamespacedKey, AdvancementProgress> progresses;
 
-	public PacketPlayOutAdvancementsEvent(Player injectedPlayer, boolean reset,
+	public PPOAdvancementsEvent(Player injectedPlayer, boolean reset,
 			Map<NamespacedKey, Advancement> advancements, Set<NamespacedKey> identifiers,
 			Map<NamespacedKey, AdvancementProgress> progresses) {
 		super(injectedPlayer);

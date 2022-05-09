@@ -6,5 +6,5 @@ import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutEvent;
 
 public interface NMSPacketPlayOut {
 	public void send(Player player);
-	public PacketPlayOutEvent buildEvent();
+	public PacketPlayOutEvent buildEvent(Player player);
 }

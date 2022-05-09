@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 import io.github.mcrtin.tmp.PacketUtils;
 import io.github.mcrtin.tmp.advancements.AdvancementType;
 import io.github.mcrtin.tmp.advancements.Display;
-import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutAdvancementsEvent;
+import io.github.mcrtin.tmp.playOutEvents.PPOAdvancementsEvent;
 import io.github.mcrtin.tmp.reflections.Field;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.AdvancementDisplay;
@@ -20,7 +20,7 @@ import net.minecraft.server.v1_16_R3.MinecraftKey;
 /**
  * Represents a {@link AdvancementDisplay}. Only used by packets.
  * 
- * @see PacketPlayOutAdvancementsEvent
+ * @see PPOAdvancementsEvent
  *
  */
 public class NMSDisplay implements Display {

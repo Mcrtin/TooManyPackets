@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -14,21 +13,21 @@ import org.bukkit.entity.Player;
 import io.github.mcrtin.tmp.PacketUtils;
 import io.github.mcrtin.tmp.advancements.Advancement;
 import io.github.mcrtin.tmp.advancements.AdvancementProgress;
-import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutAdvancementsEvent;
+import io.github.mcrtin.tmp.playOutEvents.PPOAdvancementsEvent;
 import io.github.mcrtin.tmp.playOutPackets.PPOAdvancements;
 import io.github.mcrtin.tmp.reflections.Field;
 import io.github.mcrtin.tmpv1_16_R3.advancemts.NMSAdvancement;
 import io.github.mcrtin.tmpv1_16_R3.advancemts.NMSAdvancementProgress;
+import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.Advancement.SerializedAdvancement;
 import net.minecraft.server.v1_16_R3.MinecraftKey;
 import net.minecraft.server.v1_16_R3.PacketPlayOutAdvancements;
 
 public class NMSPPOAdvancements implements PPOAdvancements, NMSPacketPlayOut {
-
+	@NonNull
 	private final PacketPlayOutAdvancements packet;
 
 	public NMSPPOAdvancements(PacketPlayOutAdvancements packet) {
-		Validate.notNull(packet);
 		this.packet = packet;
 	}
 
@@ -76,7 +75,7 @@ public class NMSPPOAdvancements implements PPOAdvancements, NMSPacketPlayOut {
 	}
 
 	@Override
-	public PacketPlayOutAdvancementsEvent buildEvent() {
-		return null;
+	public PPOAdvancementsEvent buildEvent(Player player) {
+		return new PPOAdvancementsEvent(player, isReset(), getAdvancements(), getIdentifiers(), getProgresses());
 	}
 }
