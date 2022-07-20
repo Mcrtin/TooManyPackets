@@ -1,6 +1,8 @@
 package io.github.mcrtin.tmp.advancements;
 
-import org.apache.commons.lang.Validate;
+import lombok.NonNull;
+
+import java.util.Arrays;
 
 public enum AdvancementTab {
 	STORY("story/root"), NETHER("nether/root"), END("end/root"), ADVENTURE("adventure/root"),
@@ -8,7 +10,7 @@ public enum AdvancementTab {
 
 	private final String identifier;
 
-	private AdvancementTab(String identifier) {
+	AdvancementTab(String identifier) {
 		this.identifier = identifier;
 	}
 
@@ -16,11 +18,10 @@ public enum AdvancementTab {
 		return identifier;
 	}
 
-	public static AdvancementTab getAdvancementTab(String identifier) {
-		Validate.notNull(identifier);
-		for (AdvancementTab tab : AdvancementTab.values())
-			if (tab.getIdentifier().equals(identifier))
-				return tab;
-		throw new IllegalArgumentException();
+	public static AdvancementTab getAdvancementTab(@NonNull String identifier) {
+		return Arrays.stream(values())
+				.filter(tab -> tab.getIdentifier().equals(identifier))
+				.findAny()
+				.orElseThrow(IllegalArgumentException::new);
 	}
 }

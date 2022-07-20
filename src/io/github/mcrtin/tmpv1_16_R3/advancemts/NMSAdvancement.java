@@ -1,42 +1,35 @@
 package io.github.mcrtin.tmpv1_16_R3.advancemts;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang.Validate;
-import org.bukkit.NamespacedKey;
-
-import io.github.mcrtin.tmp.PacketUtils;
+import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
 import io.github.mcrtin.tmp.advancements.Advancement;
 import io.github.mcrtin.tmp.advancements.Criterion;
 import io.github.mcrtin.tmp.advancements.Display;
 import io.github.mcrtin.tmp.advancements.Rewards;
 import io.github.mcrtin.tmp.reflections.Field;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.Advancement.SerializedAdvancement;
 import net.minecraft.server.v1_16_R3.AdvancementDisplay;
 import net.minecraft.server.v1_16_R3.AdvancementRewards;
 import net.minecraft.server.v1_16_R3.MinecraftKey;
+import org.bukkit.NamespacedKey;
 
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+@AllArgsConstructor
 public class NMSAdvancement implements Advancement {
 	@NonNull
-	private SerializedAdvancement nms;
+	private final SerializedAdvancement nms;
 
-	public NMSAdvancement(SerializedAdvancement nms) {
-		Validate.notNull(nms);
-		this.nms = nms;
-
-	}
 
 	@Nullable
 	@Override
 	public NamespacedKey getParent() {
 		final MinecraftKey nmsParent = Field.get(nms, "a", MinecraftKey.class);
-		NamespacedKey parent = nmsParent == null ? null : PacketUtils.toNamespacedKey(nmsParent);
-		return parent;
+		return nmsParent == null ? null : PacketUtils.toNamespacedKey(nmsParent);
 	}
 
 	@Override
@@ -53,7 +46,7 @@ public class NMSAdvancement implements Advancement {
 
 	@Override
 	public void setDisplay(@Nullable Display display) {
-		nms.a(((NMSDisplay) display).getHandle());
+		nms.a(display == null ? null : ((NMSDisplay) display).getHandle());
 	}
 
 	@Override

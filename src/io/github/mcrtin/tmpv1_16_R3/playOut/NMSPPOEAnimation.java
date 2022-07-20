@@ -1,27 +1,20 @@
 package io.github.mcrtin.tmpv1_16_R3.playOut;
 
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
-import org.bukkit.entity.Player;
-
 import io.github.mcrtin.tmp.playOutEvents.PPOEAnimationEvent;
 import io.github.mcrtin.tmp.playOutPackets.PPOEAnimation;
 import io.github.mcrtin.tmp.player.PlayerAnimation;
 import io.github.mcrtin.tmp.reflections.Field;
+import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.PacketPlayOutAnimation;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
-public class NMSPPOEAnimation implements PPOEAnimation, NMSPacketPlayOut {
+@AllArgsConstructor
+public class NMSPPOEAnimation implements PPOEAnimation {
 	@NonNull
-	private PacketPlayOutAnimation packet;
-
-	public NMSPPOEAnimation(@NonNull PacketPlayOutAnimation packet) {
-		this.packet = packet;
-	}
-
-	@Override
-	public void setAnimation(PlayerAnimation playerAnimation) {
-		Field.set(packet, "b", playerAnimation.getId());
-	}
+	private final PacketPlayOutAnimation packet;
 
 	@Override
 	public PlayerAnimation getAnimation() {
@@ -30,17 +23,12 @@ public class NMSPPOEAnimation implements PPOEAnimation, NMSPacketPlayOut {
 
 	@Override
 	public void send(Player player) {
-		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+		PacketUtils.sendPacket(player, packet);
 	}
 
 	@Override
 	public PPOEAnimationEvent buildEvent(Player player) {
-		return new PPOEAnimationEvent(player, getAnimation(), getEntityId());
-	}
-
-	@Override
-	public void setEntityId(int entityId) {
-		Field.set(packet, "a", entityId);
+		return new PPOEAnimationEvent(player, this);
 	}
 
 	@Override

@@ -8,9 +8,9 @@ import org.bukkit.NamespacedKey;
 import io.github.mcrtin.tmp.advancements.Advancement;
 import io.github.mcrtin.tmp.advancements.AdvancementProgress;
 
-public interface PPOAdvancements {
-	public boolean isReset();
-	public Map<NamespacedKey, Advancement> getAdvancements();
-	public Set<NamespacedKey> getIdentifiers();
-	public Map<NamespacedKey, AdvancementProgress> getProgresses();
+public interface PPOAdvancements extends PacketPlayOut{
+	boolean isReset();
+	Map<NamespacedKey, Advancement> getAdvancements();
+	Set<NamespacedKey> getIdentifiers();
+	Map<NamespacedKey, AdvancementProgress> getProgresses();
 }

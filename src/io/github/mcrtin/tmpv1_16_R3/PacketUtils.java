@@ -1,48 +1,34 @@
-package io.github.mcrtin.tmp;
+package io.github.mcrtin.tmpv1_16_R3;
 
-import javax.annotation.Nullable;
-
+import io.github.mcrtin.tmp.reflections.Field;
+import net.minecraft.server.v1_16_R3.SoundCategory;
+import net.minecraft.server.v1_16_R3.*;
 import org.apache.commons.lang.Validate;
-import org.bukkit.ChatColor;
-import org.bukkit.Difficulty;
-import org.bukkit.EntityEffect;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Rotation;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.structure.Mirror;
 import org.bukkit.block.structure.UsageMode;
+import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
+import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Pose;
 import org.bukkit.util.Vector;
 
-import io.github.mcrtin.tmp.reflections.Field;
-import net.minecraft.server.v1_16_R3.BlockPosition;
-import net.minecraft.server.v1_16_R3.BlockPropertyStructureMode;
-import net.minecraft.server.v1_16_R3.EntityPose;
-import net.minecraft.server.v1_16_R3.EntityTypes;
-import net.minecraft.server.v1_16_R3.EnumBlockMirror;
-import net.minecraft.server.v1_16_R3.EnumBlockRotation;
-import net.minecraft.server.v1_16_R3.EnumChatFormat;
-import net.minecraft.server.v1_16_R3.EnumDifficulty;
-import net.minecraft.server.v1_16_R3.EnumDirection;
-import net.minecraft.server.v1_16_R3.EnumGamemode;
-import net.minecraft.server.v1_16_R3.IRegistry;
-import net.minecraft.server.v1_16_R3.Item;
-import net.minecraft.server.v1_16_R3.MinecraftKey;
-import net.minecraft.server.v1_16_R3.MobEffectList;
-import net.minecraft.server.v1_16_R3.ResourceKey;
-import net.minecraft.server.v1_16_R3.SectionPosition;
-import net.minecraft.server.v1_16_R3.SoundEffect;
-import net.minecraft.server.v1_16_R3.Vec3D;
-import net.minecraft.server.v1_16_R3.Vector3f;
+import javax.annotation.Nullable;
 
 public class PacketUtils {
+	@Nullable
+	public static org.bukkit.entity.Entity getEntity(World world, int entityId) {
+		return CraftEntity.getEntity((CraftServer) Bukkit.getServer(),((CraftWorld)world).getHandle().getEntity(entityId));
+	}
+	public static void sendPacket(Player player, Packet<?> packet) {
+		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+	}
 
 	public static byte toBitSet(boolean... booleans) {
 		Validate.isTrue(booleans.length <= 8);
@@ -218,7 +204,7 @@ public class PacketUtils {
 	public static BlockPropertyStructureMode toBlockPropertyStructureMode(UsageMode usageMode) {
 		Validate.notNull(usageMode);
 		for (BlockPropertyStructureMode blockPropertyStructureMode : BlockPropertyStructureMode.values())
-			if (blockPropertyStructureMode.name().equals(blockPropertyStructureMode.name()))
+			if (blockPropertyStructureMode.name().equals(usageMode.name()))
 				return blockPropertyStructureMode;
 		throw new IllegalArgumentException();
 	}

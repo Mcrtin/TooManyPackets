@@ -10,24 +10,24 @@ import org.bukkit.NamespacedKey;
 public interface Advancement {
 	
 	@Nullable
-	public NamespacedKey getParent();
+	NamespacedKey getParent();
 
-	public void setParent(@Nullable NamespacedKey parent);
+	void setParent(@Nullable NamespacedKey parent);
 
 	@Nullable
-	public Display getDisplay();
+	Display getDisplay();
 
-	public void setDisplay(@Nullable Display display);
+	void setDisplay(@Nullable Display display);
 
-	public Rewards getRewards();
+	Rewards getRewards();
 
-	public void setRewards(Rewards rewards);
+	void setRewards(Rewards rewards);
 
-	public Map<String, Criterion> getCriteria();
+	Map<String, Criterion> getCriteria();
 
-	public void setCriteria(Map<String, Criterion> criteria);
+	void setCriteria(Map<String, Criterion> criteria);
 
-	public String[][] getRequirements();
+	String[][] getRequirements();
 
-	public void setRequirements(String[][] requirements);
+	void setRequirements(String[][] requirements);
 }

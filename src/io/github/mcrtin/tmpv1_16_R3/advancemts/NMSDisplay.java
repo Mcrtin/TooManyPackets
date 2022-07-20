@@ -2,30 +2,25 @@ package io.github.mcrtin.tmpv1_16_R3.advancemts;
 
 import javax.annotation.Nullable;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.mcrtin.tmp.PacketUtils;
+import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
 import io.github.mcrtin.tmp.advancements.AdvancementType;
 import io.github.mcrtin.tmp.advancements.Display;
-import io.github.mcrtin.tmp.playOutEvents.PPOAdvancementsEvent;
 import io.github.mcrtin.tmp.reflections.Field;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.AdvancementDisplay;
 import net.minecraft.server.v1_16_R3.IChatBaseComponent;
 import net.minecraft.server.v1_16_R3.MinecraftKey;
 
-/**
- * Represents a {@link AdvancementDisplay}. Only used by packets.
- * 
- * @see PPOAdvancementsEvent
- *
- */
+@AllArgsConstructor
 public class NMSDisplay implements Display {
 	@NonNull
-	private AdvancementDisplay nms;
+	private final AdvancementDisplay nms;
 
 	public NMSDisplay(IChatBaseComponent title, IChatBaseComponent description, ItemStack icon,
 			@Nullable NamespacedKey background, AdvancementType frame, boolean showToast, boolean announceToChat,
@@ -39,10 +34,6 @@ public class NMSDisplay implements Display {
 				PacketUtils.toMinecraftKey(background), NMSAdvancementType.getAdvancementTypeOf(frame), showToast,
 				announceToChat, hidden);
 		nms.a(x, y);
-	}
-
-	public NMSDisplay(AdvancementDisplay nms) {
-		this.nms = nms;
 	}
 
 	@Override

@@ -6,15 +6,15 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.server.v1_16_R3.CriterionTriggers;
 
+import javax.annotation.Nullable;
+
 public interface Criterion {
 	/**
 	 * @see CriterionTriggers
 	 */
-	public NamespacedKey getTrigger();
+	@Nullable
+	NamespacedKey getTrigger();
 
-	public void setTrigger(NamespacedKey trigger);
-
-	public JsonObject getConditions();
-
-	public void setConditions(JsonObject conditions);
+	@Nullable
+	JsonObject getConditions();
 }

@@ -1,5 +1,7 @@
 package io.github.mcrtin.tmp.playOutEvents;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
@@ -11,6 +13,10 @@ import io.github.mcrtin.tmp.reflections.Field;
 import net.minecraft.server.v1_16_R3.Packet;
 import net.minecraft.server.v1_16_R3.PacketListenerPlayOut;
 
+import javax.annotation.Nullable;
+
+@Getter
+@Setter
 public abstract class PacketPlayOutEntityEvent extends PacketPlayOutEvent {
 
 	private int entityId;
@@ -29,10 +35,7 @@ public abstract class PacketPlayOutEntityEvent extends PacketPlayOutEvent {
 		this.entityId = Field.get(packet, fieldName, int.class);
 	}
 
-	public int getEntityId() {
-		return entityId;
-	}
-
+	@Nullable
 	public Entity getEntity() {
 		return CraftEntity.getEntity((CraftServer) Bukkit.getServer(),((CraftWorld)getPlayer().getWorld()).getHandle().getEntity(entityId));
 	}

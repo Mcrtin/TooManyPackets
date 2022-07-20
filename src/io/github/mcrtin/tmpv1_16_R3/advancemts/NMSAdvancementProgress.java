@@ -1,20 +1,21 @@
 package io.github.mcrtin.tmpv1_16_R3.advancemts;
 
+import io.github.mcrtin.tmp.reflections.Field;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import net.minecraft.server.v1_16_R3.AdvancementProgress;
+import net.minecraft.server.v1_16_R3.CriterionProgress;
+import org.apache.commons.lang.Validate;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.apache.commons.lang.Validate;
-
-import io.github.mcrtin.tmp.reflections.Field;
-import lombok.NonNull;
-import net.minecraft.server.v1_16_R3.AdvancementProgress;
-import net.minecraft.server.v1_16_R3.CriterionProgress;
-
+@AllArgsConstructor
 public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements.AdvancementProgress {
 	@NonNull
-	private AdvancementProgress nms;
+	private final AdvancementProgress nms;
 
 	@SuppressWarnings("unchecked")
 	public NMSAdvancementProgress(Map<String, Date> progress, String[][] requirements) {
@@ -29,11 +30,6 @@ public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements
 		}
 		Field.get(nms, "a", Map.class).putAll(nmsCriterionProgresses);
 		Field.set(nms, "b", requirements);
-	}
-
-	public NMSAdvancementProgress(AdvancementProgress nms) {
-		Validate.notNull(nms);
-		this.nms = nms;
 	}
 
 	@Override
@@ -67,7 +63,7 @@ public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements
 		Field.set(nms, "b", requirements);
 	}
 
-	public AdvancementProgress getHadle() {
+	public AdvancementProgress getHandle() {
 		return nms;
 	}
 }

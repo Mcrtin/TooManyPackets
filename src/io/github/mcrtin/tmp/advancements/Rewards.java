@@ -5,19 +5,19 @@ import org.bukkit.NamespacedKey;
 import net.minecraft.server.v1_16_R3.CustomFunction;
 
 public interface Rewards {
-	public int getXp();
+	int getXp();
 
-	public void setXp(int xp);
+	void setXp(int xp);
 
-	public NamespacedKey[] getLoot();
+	NamespacedKey[] getLoot();
 
-	public void setLoot(NamespacedKey[] loot);
+	void setLoot(NamespacedKey[] loot);
 
-	public NamespacedKey[] getRecipes();
+	NamespacedKey[] getRecipes();
 
-	public void setRecipes(NamespacedKey[] recipes);
+	void setRecipes(NamespacedKey[] recipes);
 
-	public CustomFunction.a getFunction();
+	CustomFunction.a getFunction();
 
-	public void setFunction(CustomFunction.a function);
+	void setFunction(CustomFunction.a function);
 }

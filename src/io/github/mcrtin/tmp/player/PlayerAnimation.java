@@ -1,10 +1,7 @@
 package io.github.mcrtin.tmp.player;
 
-/**
- * Only used by packets.
- * 
- * @see PPOEAnimationEvent
- */
+import java.util.Arrays;
+
 public enum PlayerAnimation {
 	CRITICAL_EFFECT(4), LEAVE_BED(2), MAGIC_CRITICAL_EFFECT(5), SWING_MAIN_ARM(0), SWING_OFFHAND(3), TAKE_DAMAGE(1);
 
@@ -19,10 +16,10 @@ public enum PlayerAnimation {
 	}
 
 	public static PlayerAnimation getByID(int id) {
-		for (PlayerAnimation animation : values())
-			if (animation.getId() == id)
-				return animation;
-		throw new IllegalArgumentException("Invalid player animation id: " + id);
+		return Arrays.stream(values())
+				.filter(animation -> animation.getId() == id)
+				.findAny()
+				.orElseThrow(() -> new IllegalArgumentException("Invalid player animation id: " + id));
 	}
 
 }

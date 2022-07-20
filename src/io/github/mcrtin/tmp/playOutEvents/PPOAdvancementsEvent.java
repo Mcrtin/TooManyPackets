@@ -3,6 +3,7 @@ package io.github.mcrtin.tmp.playOutEvents;
 import java.util.Map;
 import java.util.Set;
 
+import io.github.mcrtin.tmp.playOutPackets.PPOAdvancements;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -33,17 +34,22 @@ public class PPOAdvancementsEvent extends PacketPlayOutEvent {
 	private Map<NamespacedKey, AdvancementProgress> progresses;
 
 	public PPOAdvancementsEvent(Player injectedPlayer, boolean reset,
-			Map<NamespacedKey, Advancement> advancements, Set<NamespacedKey> identifiers,
-			Map<NamespacedKey, AdvancementProgress> progresses) {
+								@NonNull Map<NamespacedKey, Advancement> advancements,
+								@NonNull Set<NamespacedKey> identifiers,
+								@NonNull Map<NamespacedKey, AdvancementProgress> progresses) {
 		super(injectedPlayer);
-
-		Validate.notNull(advancements);
-		Validate.notNull(identifiers);
-		Validate.notNull(progresses);
 
 		this.reset = reset;
 		this.advancements = advancements;
 		this.identifiers = identifiers;
 		this.progresses = progresses;
+	}
+
+	public PPOAdvancementsEvent(Player injectedPlayer, PPOAdvancements packet) {
+		super(injectedPlayer);
+		reset = packet.isReset();
+		advancements = packet.getAdvancements();
+		identifiers = packet.getIdentifiers();
+		progresses = packet.getProgresses();
 	}
 }

@@ -8,45 +8,45 @@ import org.bukkit.inventory.ItemStack;
 import net.minecraft.server.v1_16_R3.IChatBaseComponent;
 
 public interface Display {
-	public IChatBaseComponent getTitle();
+	IChatBaseComponent getTitle();
 
-	public void setTitle(IChatBaseComponent title);
+	void setTitle(IChatBaseComponent title);
 
-	public IChatBaseComponent getDescription();
+	IChatBaseComponent getDescription();
 
-	public void setDescription(IChatBaseComponent description);
+	void setDescription(IChatBaseComponent description);
 
-	public ItemStack getIconCopy();
+	ItemStack getIconCopy();
 
-	public void setIconCopy(ItemStack icon);
+	void setIconCopy(ItemStack icon);
 
 	@Nullable
-	public NamespacedKey getBackground();
+	NamespacedKey getBackground();
 
-	public void setBackground(@Nullable NamespacedKey background);
+	void setBackground(@Nullable NamespacedKey background);
 
-	public AdvancementType getFrame();
+	AdvancementType getFrame();
 
-	public void setFrame(AdvancementType frame);
+	void setFrame(AdvancementType frame);
 
-	public boolean isShowToast();
+	boolean isShowToast();
 
-	public void setShowToast(boolean showToast);
+	void setShowToast(boolean showToast);
 
-	public boolean isAnnounceToChat();
+	boolean isAnnounceToChat();
 
-	public void setAnnounceToChat(boolean announceToChat);
+	void setAnnounceToChat(boolean announceToChat);
 
-	public boolean isHidden();
+	boolean isHidden();
 
-	public void setHidden(boolean hidden);
+	void setHidden(boolean hidden);
 
-	public float getX();
+	float getX();
 
-	public void setX(float x);
+	void setX(float x);
 
-	public float getY();
+	float getY();
 
-	public void setY(float y);
+	void setY(float y);
 
 }

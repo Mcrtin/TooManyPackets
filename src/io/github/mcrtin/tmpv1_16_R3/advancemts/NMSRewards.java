@@ -1,9 +1,10 @@
 package io.github.mcrtin.tmpv1_16_R3.advancemts;
 
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 
-import io.github.mcrtin.tmp.PacketUtils;
+import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
 import io.github.mcrtin.tmp.advancements.Rewards;
 import io.github.mcrtin.tmp.reflections.Field;
 import lombok.NonNull;
@@ -11,9 +12,10 @@ import net.minecraft.server.v1_16_R3.AdvancementRewards;
 import net.minecraft.server.v1_16_R3.CustomFunction;
 import net.minecraft.server.v1_16_R3.MinecraftKey;
 
+@AllArgsConstructor
 public class NMSRewards implements Rewards {
 	@NonNull
-	private AdvancementRewards nms;
+	private final AdvancementRewards nms;
 
 	public NMSRewards(int xp, NamespacedKey[] loot, NamespacedKey[] recipes, CustomFunction.a function) {
 		Validate.notNull(loot);
@@ -29,11 +31,6 @@ public class NMSRewards implements Rewards {
 			nmsRecipes[i] = PacketUtils.toMinecraftKey(recipes[i]);
 
 		nms = new AdvancementRewards(xp, nmsLoot, nmsRecipes, function);
-	}
-
-	public NMSRewards(AdvancementRewards nms) {
-		Validate.notNull(nms);
-		this.nms = nms;
 	}
 
 	public int getXp() {

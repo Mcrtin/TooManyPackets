@@ -3,6 +3,7 @@ package io.github.mcrtin.tmp;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import net.minecraft.server.v1_16_R3.PacketPlayOutBlockBreakAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutEvent;
 import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOAdvancements;
 import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOEAnimation;
-import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPacketPlayOut;
+import io.github.mcrtin.tmp.playOutPackets.PacketPlayOut;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -59,13 +60,13 @@ public class Injections implements Listener {
 	}
 
 	private boolean readOut(Player player, Object msg) {
-		Class<? extends NMSPacketPlayOut> clazz = mapOut.get(msg.getClass());
+		Class<? extends PacketPlayOut> clazz = mapOut.get(msg.getClass());
 		if (clazz == null) {
 			System.err.println("[OUT] unregistered packet: " + msg.getClass().getSimpleName());
 			return false;
 		}
 		try {
-			NMSPacketPlayOut packet = clazz.getConstructor(Player.class, msg.getClass()).newInstance(player, msg);
+			PacketPlayOut packet = clazz.getConstructor(Player.class, msg.getClass()).newInstance(player, msg);
 			PacketPlayOutEvent event = packet.buildEvent(player);
 			Bukkit.getPluginManager().callEvent(event);
 			return event.isCancelled();
@@ -78,9 +79,10 @@ public class Injections implements Listener {
 
 	}
 
-	private static final HashMap<Class<? extends Packet<?>>, Class<? extends NMSPacketPlayOut>> mapOut = new HashMap<>();
+	private static final HashMap<Class<? extends Packet<?>>, Class<? extends PacketPlayOut>> mapOut = new HashMap<>();
 	static {
 		mapOut.put(PacketPlayOutAdvancements.class, NMSPPOAdvancements.class);
 		mapOut.put(PacketPlayOutAnimation.class, NMSPPOEAnimation.class);
+		mapOut.put(PacketPlayOutBlockBreakAnimation.class, NMSPPOEAnimation.class);
 	}
 }

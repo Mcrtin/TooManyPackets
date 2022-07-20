@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.Map;
 
 public interface AdvancementProgress {
-	public Map<String, Date> getProgress();
+	Map<String, Date> getProgress();
 
-	public void setProgress(Map<String, Date> progress);
+	void setProgress(Map<String, Date> progress);
 
-	public String[][] getRequirements();
+	String[][] getRequirements();
 
-	public void setRequirements(String[][] requirements);
+	void setRequirements(String[][] requirements);
 
 }
