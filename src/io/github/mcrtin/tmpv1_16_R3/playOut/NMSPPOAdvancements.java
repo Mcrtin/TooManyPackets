@@ -11,6 +11,7 @@ import io.github.mcrtin.tmpv1_16_R3.advancemts.NMSAdvancementProgress;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.Advancement.SerializedAdvancement;
 import net.minecraft.server.v1_16_R3.MinecraftKey;
+import net.minecraft.server.v1_16_R3.Packet;
 import net.minecraft.server.v1_16_R3.PacketPlayOutAdvancements;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
@@ -70,5 +71,9 @@ public class NMSPPOAdvancements implements PPOAdvancements {
 	@Override
 	public PPOAdvancementsEvent buildEvent(Player player) {
 		return new PPOAdvancementsEvent(player, this);
+	}
+
+	public Packet<?> getHandle() {
+		return packet;
 	}
 }

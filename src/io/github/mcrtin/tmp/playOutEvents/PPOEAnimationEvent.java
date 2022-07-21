@@ -1,13 +1,11 @@
 package io.github.mcrtin.tmp.playOutEvents;
 
-import io.github.mcrtin.tmp.playOutPackets.PPOBAction;
 import io.github.mcrtin.tmp.playOutPackets.PPOEAnimation;
-import org.bukkit.entity.Player;
-
 import io.github.mcrtin.tmp.player.PlayerAnimation;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.bukkit.entity.Player;
 
 @Getter
 @Setter
