@@ -2,8 +2,6 @@ package io.github.mcrtin.tmp.advancements;
 
 import org.bukkit.NamespacedKey;
 
-import net.minecraft.server.v1_16_R3.CustomFunction;
-
 public interface Rewards {
 	int getXp();
 
@@ -17,7 +15,7 @@ public interface Rewards {
 
 	void setRecipes(NamespacedKey[] recipes);
 
-	CustomFunction.a getFunction();
+	Object getCustomFunction();
 
-	void setFunction(CustomFunction.a function);
+	void setCustomFunction(Object function);
 }

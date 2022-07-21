@@ -3,11 +3,7 @@ package io.github.mcrtin.tmp.playOutEvents;
 import io.github.mcrtin.tmp.playOutPackets.PPOBBreakAnimation;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_16_R3.CraftServer;
-import org.bukkit.craftbukkit.v1_16_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftEntity;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -31,9 +27,5 @@ public class PPOBBreakAnimationEvent extends PacketPlayOutBlockEvent {
         super(injectedPlayer, packet.getBlockLocation(injectedPlayer.getWorld()));
         entityId = packet.getEntityId();
         entity = packet.getEntity(injectedPlayer.getWorld());
-    }
-    @Nullable
-    public Entity getEntity() {
-        return CraftEntity.getEntity((CraftServer) Bukkit.getServer(),((CraftWorld)getPlayer().getWorld()).getHandle().getEntity(entityId));
     }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_16_R3.util.CraftChatMessage;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
@@ -37,23 +38,23 @@ public class NMSDisplay implements Display {
 	}
 
 	@Override
-	public IChatBaseComponent getTitle() {
-		return nms.a();
+	public String getTitle() {
+		return CraftChatMessage.fromComponent(nms.a());
 	}
 
 	@Override
-	public void setTitle(IChatBaseComponent title) {
-		Field.set(nms, "a", title);
+	public void setTitle(String title) {
+		Field.set(nms, "a", CraftChatMessage.fromStringOrNull(title));
 	}
 
 	@Override
-	public IChatBaseComponent getDescription() {
-		return nms.b();
+	public String getDescription() {
+		return CraftChatMessage.fromComponent(nms.b());
 	}
 
 	@Override
-	public void setDescription(IChatBaseComponent description) {
-		Field.set(nms, "b", description);
+	public void setDescription(String description) {
+		Field.set(nms, "b", CraftChatMessage.fromStringOrNull(description));
 	}
 
 	@Override

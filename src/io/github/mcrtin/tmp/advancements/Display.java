@@ -1,20 +1,18 @@
 package io.github.mcrtin.tmp.advancements;
 
-import javax.annotation.Nullable;
-
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
-import net.minecraft.server.v1_16_R3.IChatBaseComponent;
+import javax.annotation.Nullable;
 
 public interface Display {
-	IChatBaseComponent getTitle();
+	String getTitle();
 
-	void setTitle(IChatBaseComponent title);
+	void setTitle(String title);
 
-	IChatBaseComponent getDescription();
+	String getDescription();
 
-	void setDescription(IChatBaseComponent description);
+	void setDescription(String description);
 
 	ItemStack getIconCopy();
 

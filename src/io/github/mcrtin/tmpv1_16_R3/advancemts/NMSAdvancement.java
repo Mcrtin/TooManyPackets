@@ -24,7 +24,6 @@ public class NMSAdvancement implements Advancement {
 	@NonNull
 	private final SerializedAdvancement nms;
 
-
 	@Nullable
 	@Override
 	public NamespacedKey getParent() {
@@ -52,7 +51,6 @@ public class NMSAdvancement implements Advancement {
 	@Override
 	public Rewards getRewards() {
 		return new NMSRewards(Field.get(nms, "d", AdvancementRewards.class));
-
 	}
 
 	@Override

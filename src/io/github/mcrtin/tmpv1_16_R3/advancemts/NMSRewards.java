@@ -18,9 +18,6 @@ public class NMSRewards implements Rewards {
 	private final AdvancementRewards nms;
 
 	public NMSRewards(int xp, NamespacedKey[] loot, NamespacedKey[] recipes, CustomFunction.a function) {
-		Validate.notNull(loot);
-		Validate.notNull(recipes);
-		Validate.notNull(function);
 
 		MinecraftKey[] nmsLoot = new MinecraftKey[loot.length];
 		MinecraftKey[] nmsRecipes = new MinecraftKey[recipes.length];
@@ -33,14 +30,17 @@ public class NMSRewards implements Rewards {
 		nms = new AdvancementRewards(xp, nmsLoot, nmsRecipes, function);
 	}
 
+	@Override
 	public int getXp() {
 		return Field.get(nms, "b", int.class);
 	}
 
+	@Override
 	public void setXp(int xp) {
 		Field.set(nms, "b", xp);
 	}
 
+	@Override
 	public NamespacedKey[] getLoot() {
 		MinecraftKey[] nmsLoot = Field.get(nms, "c", MinecraftKey[].class);
 		NamespacedKey[] loot = new NamespacedKey[nmsLoot.length];
@@ -49,11 +49,12 @@ public class NMSRewards implements Rewards {
 		return loot;
 	}
 
+	@Override
 	public void setLoot(NamespacedKey[] loot) {
-		Validate.notNull(loot);
 		Field.set(nms, "c", loot);
 	}
 
+	@Override
 	public NamespacedKey[] getRecipes() {
 		MinecraftKey[] nmsRecipes = Field.get(nms, "d", MinecraftKey[].class);
 		NamespacedKey[] recipes = new NamespacedKey[nmsRecipes.length];
@@ -62,17 +63,18 @@ public class NMSRewards implements Rewards {
 		return recipes;
 	}
 
+	@Override
 	public void setRecipes(NamespacedKey[] recipes) {
-		Validate.notNull(recipes);
 		Field.set(nms, "d", recipes);
 	}
 
-	public CustomFunction.a getFunction() {
+	@Override
+	public CustomFunction.a getCustomFunction() {
 		return Field.get(nms, "e", CustomFunction.a.class);
 	}
 
-	public void setFunction(CustomFunction.a function) {
-		Validate.notNull(function);
+	@Override
+	public void setCustomFunction(Object function) {
 		Field.set(nms, "e", function);
 	}
 

@@ -1,10 +1,11 @@
-package io.github.mcrtin.tmp;
+package io.github.mcrtin.tmpv1_16_R3;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import io.github.mcrtin.tmpv1_16_R3.playOut.*;
 import io.netty.channel.*;
-import net.minecraft.server.v1_16_R3.PacketPlayOutBlockBreakAnimation;
+import net.minecraft.server.v1_16_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -14,12 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutEvent;
-import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOAdvancements;
-import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOEAnimation;
 import io.github.mcrtin.tmp.playOutPackets.PacketPlayOut;
-import net.minecraft.server.v1_16_R3.Packet;
-import net.minecraft.server.v1_16_R3.PacketPlayOutAdvancements;
-import net.minecraft.server.v1_16_R3.PacketPlayOutAnimation;
 
 public class Injections implements Listener {
 
@@ -79,7 +75,11 @@ public class Injections implements Listener {
 	private static final HashMap<Class<? extends Packet<?>>, Class<? extends PacketPlayOut>> mapOut = new HashMap<>();
 	static {
 		mapOut.put(PacketPlayOutAdvancements.class, NMSPPOAdvancements.class);
+		mapOut.put(PacketPlayOutBlockAction.class, NMSPPOBAction.class);
+		mapOut.put(PacketPlayOutBlockBreakAnimation.class, NMSPPOBBreakAnimation.class);
+		mapOut.put(PacketPlayOutBlockChange.class, NMSPPOBChange.class);
+		mapOut.put(PacketPlayOutTileEntityData.class, NMSPPOBData.class);
+		mapOut.put(PacketPlayOutBoss.class, NMSPPOBossBar.class);
 		mapOut.put(PacketPlayOutAnimation.class, NMSPPOEAnimation.class);
-		mapOut.put(PacketPlayOutBlockBreakAnimation.class, NMSPPOEAnimation.class);
 	}
 }
