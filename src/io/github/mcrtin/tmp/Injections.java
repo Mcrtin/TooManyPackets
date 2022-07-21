@@ -3,6 +3,7 @@ package io.github.mcrtin.tmp;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import io.netty.channel.*;
 import net.minecraft.server.v1_16_R3.PacketPlayOutBlockBreakAnimation;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
@@ -16,10 +17,6 @@ import io.github.mcrtin.tmp.playOutEvents.PacketPlayOutEvent;
 import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOAdvancements;
 import io.github.mcrtin.tmpv1_16_R3.playOut.NMSPPOEAnimation;
 import io.github.mcrtin.tmp.playOutPackets.PacketPlayOut;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelDuplexHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPromise;
 import net.minecraft.server.v1_16_R3.Packet;
 import net.minecraft.server.v1_16_R3.PacketPlayOutAdvancements;
 import net.minecraft.server.v1_16_R3.PacketPlayOutAnimation;
@@ -40,8 +37,8 @@ public class Injections implements Listener {
 					super.write(ctx, msg, promise);
 			}
 		};
-		((CraftPlayer) player).getHandle().playerConnection.networkManager.channel.pipeline()
-				.addBefore("packet_handler", player.getName(), channelDuplexHandler);
+		ChannelPipeline pipeline = ((CraftPlayer) player).getHandle().playerConnection.networkManager.channel.pipeline();
+		pipeline.addBefore("packet_handler", "packet_pre_handler", channelDuplexHandler);
 	}
 
 	@EventHandler
@@ -56,7 +53,7 @@ public class Injections implements Listener {
 
 	private void removePlayer(Player player) {
 		final Channel channel = ((CraftPlayer) player).getHandle().playerConnection.networkManager.channel;
-		channel.eventLoop().submit(() -> channel.pipeline().remove(player.getName()));
+		channel.eventLoop().submit(() -> channel.pipeline().remove("packet_pre_handler"));
 	}
 
 	private boolean readOut(Player player, Object msg) {
