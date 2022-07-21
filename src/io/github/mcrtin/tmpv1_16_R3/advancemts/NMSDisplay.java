@@ -1,22 +1,22 @@
 package io.github.mcrtin.tmpv1_16_R3.advancemts;
 
-import javax.annotation.Nullable;
-
+import io.github.mcrtin.tmp.advancements.AdvancementType;
+import io.github.mcrtin.tmp.advancements.Display;
+import io.github.mcrtin.tmp.reflections.Field;
+import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import net.minecraft.server.v1_16_R3.AdvancementDisplay;
+import net.minecraft.server.v1_16_R3.AdvancementFrameType;
+import net.minecraft.server.v1_16_R3.IChatBaseComponent;
+import net.minecraft.server.v1_16_R3.MinecraftKey;
 import org.apache.commons.lang.Validate;
 import org.bukkit.NamespacedKey;
 import org.bukkit.craftbukkit.v1_16_R3.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_16_R3.util.CraftChatMessage;
 import org.bukkit.inventory.ItemStack;
 
-import io.github.mcrtin.tmpv1_16_R3.PacketUtils;
-import io.github.mcrtin.tmp.advancements.AdvancementType;
-import io.github.mcrtin.tmp.advancements.Display;
-import io.github.mcrtin.tmp.reflections.Field;
-import lombok.NonNull;
-import net.minecraft.server.v1_16_R3.AdvancementDisplay;
-import net.minecraft.server.v1_16_R3.IChatBaseComponent;
-import net.minecraft.server.v1_16_R3.MinecraftKey;
+import javax.annotation.Nullable;
 
 @AllArgsConstructor
 public class NMSDisplay implements Display {
@@ -32,7 +32,7 @@ public class NMSDisplay implements Display {
 		Validate.notNull(icon);
 		Validate.notNull(frame);
 		nms = new AdvancementDisplay(CraftItemStack.asNMSCopy(icon), title, description,
-				PacketUtils.toMinecraftKey(background), NMSAdvancementType.getAdvancementTypeOf(frame), showToast,
+				PacketUtils.toMinecraftKey(background), AdvancementFrameType.a(frame.getId()), showToast,
 				announceToChat, hidden);
 		nms.a(x, y);
 	}
@@ -81,12 +81,12 @@ public class NMSDisplay implements Display {
 
 	@Override
 	public AdvancementType getFrame() {
-		return NMSAdvancementType.getAdvancementTypeOf(nms.e());
+		return AdvancementType.getById(nms.e().a());
 	}
 
 	@Override
 	public void setFrame(AdvancementType frame) {
-		Field.set(nms, "e", NMSAdvancementType.getAdvancementTypeOf(frame));
+		Field.set(nms, "e", AdvancementFrameType.a(frame.getId()));
 	}
 
 	@Override

@@ -5,12 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.minecraft.server.v1_16_R3.AdvancementProgress;
 import net.minecraft.server.v1_16_R3.CriterionProgress;
-import org.apache.commons.lang.Validate;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements.AdvancementProgress {
@@ -19,8 +19,6 @@ public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements
 
 	@SuppressWarnings("unchecked")
 	public NMSAdvancementProgress(Map<String, Date> progress, String[][] requirements) {
-		Validate.notNull(progress);
-		Validate.notNull(requirements);
 		nms = new AdvancementProgress();
 		Map<String, CriterionProgress> nmsCriterionProgresses = new HashMap<>();
 		for (Entry<String, Date> entry : progress.entrySet()) {
@@ -36,10 +34,9 @@ public class NMSAdvancementProgress implements io.github.mcrtin.tmp.advancements
 	public Map<String, Date> getProgress() {
 		@SuppressWarnings("unchecked")
 		Map<String, CriterionProgress> nmsCriterionProgresses = Field.get(nms, "a", Map.class);
-		Map<String, Date> progress = new HashMap<>();
-		for (Entry<String, CriterionProgress> entry : nmsCriterionProgresses.entrySet())
-			progress.put(entry.getKey(), entry.getValue().getDate());
-		return progress;
+		return nmsCriterionProgresses.entrySet().stream()
+				.map(entry -> Map.entry(entry.getKey(), entry.getValue().getDate()))
+				.collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 	}
 
 	@Override

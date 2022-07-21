@@ -11,9 +11,11 @@ import net.minecraft.server.v1_16_R3.Criterion;
 import net.minecraft.server.v1_16_R3.CriterionInstance;
 import net.minecraft.server.v1_16_R3.LootSerializationContext;
 
+import javax.annotation.Nullable;
+
 public class NMSCriterion implements io.github.mcrtin.tmp.advancements.Criterion {
 	@NonNull
-	private Criterion nms;
+	private final Criterion nms;
 
 	public NMSCriterion(Criterion nms) {
 		Validate.notNull(nms.a());
@@ -25,11 +27,13 @@ public class NMSCriterion implements io.github.mcrtin.tmp.advancements.Criterion
 	}
 
 	@Override
+	@Nullable
 	public NamespacedKey getTrigger() {
 		CriterionInstance criterionInstance = nms.a();
 		return criterionInstance == null ? null : PacketUtils.toNamespacedKey(criterionInstance.a());
 	}
 
+	@Nullable
 	@Override
 	public JsonObject getConditions() {
 		CriterionInstance criterionInstance = nms.a();
