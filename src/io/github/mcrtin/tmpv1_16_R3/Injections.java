@@ -81,7 +81,9 @@ public class Injections implements Listener {
 		mapOut.put(PacketPlayOutTileEntityData.class, NMSPPOBData.class);
 		mapOut.put(PacketPlayOutBoss.class, NMSPPOBossBar.class);
 		mapOut.put(PacketPlayOutCamera.class, NMSPPOCamera.class);
-		mapOut.put(PacketPlayOutMapChunk.class, NMSPPOCData.class);
+		mapOut.put(PacketPlayOutCombatEvent.class, NMSPPOCombat.class);
+		mapOut.put(PacketPlayOutCustomPayload.class, NMSPPOCustomPayload.class);
 		mapOut.put(PacketPlayOutAnimation.class, NMSPPOEAnimation.class);
+		mapOut.put(PacketPlayOutCollect.class, NMSPPOECollect.class);
 	}
 }

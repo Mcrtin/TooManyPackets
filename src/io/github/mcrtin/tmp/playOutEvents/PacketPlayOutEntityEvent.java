@@ -13,11 +13,13 @@ import javax.annotation.Nullable;
 public abstract class PacketPlayOutEntityEvent extends PacketPlayOutEvent {
 
 	private int entityId;
-	@Nullable
-	private Entity entity;
 	public PacketPlayOutEntityEvent(Player injectedPlayer, int entityId) {
 		super(injectedPlayer);
 		this.entityId = entityId;
-		this.entity = TooManyPackets.getEntityById(entityId, injectedPlayer.getWorld());
+	}
+
+	@Nullable
+	public Entity getEntity() {
+		return TooManyPackets.getEntityById(entityId, getPlayer().getWorld());
 	}
 }
